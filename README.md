@@ -51,8 +51,8 @@ Numerically:
 # Full-time tax rate
 (1 - n / g) * 100 = 37.39 %
 
+# Optimal number of working days per week and premium retention
 x_opt = 3.0
-# optimal premium retention
 p_r_perc_max = n_r_perc(x_opt) - g_r_perc(x_opt) = 4.52 %
 
 g_r(5) = 900000.0 DKK
