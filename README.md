@@ -44,3 +44,30 @@ Thus a positive retention premium is generated:
 $$p_r^\\%(3) = 64.52\\% - 60.00\\% = +4.52\\%$$
 
 Note that while absolute net salary is lower for $x=3$, lowering the gross salary base below the mellemskat entry threshold optimizes tax efficiency, allowing the worker to retain a higher proportion of net salary relative to time invested.
+
+Numerically:
+
+```
+# Full-time tax rate
+(1 - n / g) * 100 = 37.39 %
+
+x_opt = 3.0
+# optimal premium retention
+p_r_perc_max = n_r_perc(x_opt) - g_r_perc(x_opt) = 4.52 %
+
+g_r(5) = 900000.0 DKK
+g_r_perc(5) = 100.0 %
+n_r(5) = 563535.0 DKK
+n_r_perc(5) = 100.0 %
+
+g_r(x_opt) = 539639.64 DKK
+g_r_perc(x_opt) = 59.96 %
+n_r(x_opt) = 363375.53 DKK
+n_r_perc(x_opt) = 64.48 %
+
+# Optimal part-time tax rate
+(1 - n_r(x_opt) / g_r(x_opt)) * 100 (optimal part-time tax rate) = 32.66 %
+
+# Difference between full-time tax rate and optimal part-time tax rate 
+(1 - n / g) * 100 - (1 - n_r(x_opt) / g_r(x_opt)) * 100 = 4.72 %
+```
