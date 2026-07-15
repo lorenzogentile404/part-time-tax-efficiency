@@ -20,7 +20,9 @@ $$p_r^\\%(x) = n_r^\\%(x) - g_r^\\%(x)$$
 
 Thus, the optimal number of working days per week $x_{\text{opt}}$ is defined as:
 
-$$x_{\text{opt}} = \arg\max_{x \in [0,5]} \left( p_r^\\%(x) \right)$$
+$$x_{\text{opt}} = \min\left(\arg\max_{x \in [0,5]} \left( p_r^\\%(x) \right)\right)$$
+
+Note that among all $x \in [0,5]$ maximizing $p_r^\\%(x)$, the minimum $x$ is selected.
 
 ## Analysis
 
