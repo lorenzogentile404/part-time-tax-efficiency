@@ -43,4 +43,4 @@ For a gross yearly salary $g = 900,000$ DKK, topskat entry threshold is crossed 
 Thus a positive retention premium is generated:
 $$p_r^\\%(3) = 64.52\\% - 60.00\\% = +4.52\\%$$
 
-Note that while absolute net cash is lower for $x=3$, lowering the gross salary base below the mellemskat entry threshold optimizes tax efficiency, allowing the worker to retain a higher proportion of net salary relative to time invested.
+Note that while absolute net salary is lower for $x=3$, lowering the gross salary base below the mellemskat entry threshold optimizes tax efficiency, allowing the worker to retain a higher proportion of net salary relative to time invested.
