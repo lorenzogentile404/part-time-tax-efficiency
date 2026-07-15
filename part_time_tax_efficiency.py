@@ -99,13 +99,14 @@ print("n_r(5) = " + str(round(n_r(5), 2)) + " DKK")
 print("n_r_perc(5) = " + str(round(n_r_perc(5)*100, 2)) + " %")
 
 print("g_r(x_opt) = " + str(round(g_r(x_opt), 2)) + " DKK")
-print("g_r_perc(x_opt) = " + str(round(g_r_perc(x_opt)*100, 2)) + " %")
+print("g_r_perc(x_opt) = " + str(round(g_r_perc(x_opt)*100, 0)) + " %")
 print("n_r(x_opt) = " + str(round(n_r(x_opt), 2)) + " DKK")
 print("n_r_perc(x_opt) = " + str(round(n_r_perc(x_opt)*100, 2)) + " %")
 
 print("(1 - n_r(x_opt) / g_r(x_opt)) * 100 (optimal part-time tax rate) = " + str(round((1 - n_r(x_opt) / g_r(x_opt)) * 100, 2)) + " %")
 
-print("(1 - n / g) * 100 - (1 - n_r(x_opt) / g_r(x_opt)) * 100 (difference between full-time tax rate and optimal part-time tax rate) = " + str(round((1 - n / g) * 100 - (1 - n_r(x_opt) / g_r(x_opt)) * 100, 2)) + " %")
+print("(1 - n / g) * 100 - (1 - n_r(x_opt) / g_r(x_opt)) * 100 (difference between full-time tax rate and optimal part-time tax rate) = " + str(round(((1 - n / g) * 100) - ((1 - n_r(x_opt) / g_r(x_opt)) * 100), 2)) + " %")
+
 
 # =====================================================================
 # Plots
