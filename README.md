@@ -37,10 +37,10 @@ It is possible to observe variation in tax efficiency:
 ## Example
 
 For a gross yearly salary $g = 900,000$ DKK, topskat entry threshold is crossed at full-time capacity.
-* By working $x=5$ days per week, the net salary represents a baseline of $100\%$ of full-time net value for $100\%$ of full-time labor time ($p_r^\\%(5) = 0\%$).
-* By working $x=3$ days per week, labor time decreases to $60\%$ of full-time, yet the retained net salary is $64.52\%$ of the full-time baseline net yield ($n$). 
+* By working $x=5$ days per week, the net salary represents a baseline of $100\\%$ of full-time net value for $100\\%$ of full-time labor time ($p_r^\\%(5) = 0\\%$).
+* By working $x=3$ days per week, labor time decreases to $60\\%$ of full-time, yet the retained net salary is $64.52\\%$ of the full-time baseline net yield ($n$). 
 
 Thus a positive retention premium is generated:
-$$p_r^\\%(3) = 64.52\% - 60.00\% = +4.52\%$$
+$$p_r^\\%(3) = 64.52\\% - 60.00\\% = +4.52\\%$$
 
 Note that while absolute net cash is lower for $x=3$, lowering the gross salary base below the mellemskat entry threshold optimizes tax efficiency, allowing the worker to retain a higher proportion of net salary relative to time invested.
