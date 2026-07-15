@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.optimize import minimize_scalar
 
 # =====================================================================
 # Tax function
@@ -56,7 +57,7 @@ def skat(g):
         
     # Net salary
     net_amount = salary_after_am - total_tax
-    return round(net_amount, 2)
+    return net_amount
 
 # =====================================================================
 # Analysis
@@ -80,11 +81,14 @@ n_r_perc = lambda x : n_r(x) / n
 # Find x to maximize percentual premium retention defined as
 p_r_perc = lambda x : n_r_perc(x) - g_r_perc(x)
 
-x_values = np.linspace(0, 5, 1000)
-p_r_perc_values = np.array([p_r_perc(x) * 100 for x in x_values])
-index_opt = np.argmax(p_r_perc_values)
-x_opt = x_values[index_opt]
-p_r_perc_max = p_r_perc_values[index_opt]
+res = minimize_scalar(
+    lambda x: -p_r_perc(x),
+    bounds=(0, 5),
+    method='bounded'
+)
+
+x_opt = res.x
+p_r_perc_max = p_r_perc(x_opt)
 
 # Summary
 
@@ -175,7 +179,7 @@ fig, axes = plt.subplots(2, 3, figsize=(20, 10))
 axes = axes.flatten()
 
 # Sample range of working days from 0 to 5
-days_axis = np.linspace(0, 5, 1000)
+days_axis = np.linspace(0, 5, 10000)
 
 # Iterate across each individual salary band boundary to build the matrix
 for idx, (title, g_val) in enumerate(salary_bands.items()):
@@ -187,10 +191,15 @@ for idx, (title, g_val) in enumerate(salary_bands.items()):
     # Map out percentual premium curve vector using the existing p_r_perc function
     p_r_perc_values = np.array([p_r_perc(val) * 100 for val in days_axis])
     
-    # Identify maximum position
-    index_opt = np.argmax(p_r_perc_values)
-    x_opt = days_axis[index_opt]
-    p_r_perc_max = p_r_perc_values[index_opt]
+    # Find x to maximize percentual premium retention
+    res = minimize_scalar(
+        lambda x: -p_r_perc(x),
+        bounds=(0, 5),
+        method='bounded'
+    )
+
+    x_opt = res.x
+    p_r_perc_max = p_r_perc(x_opt) * 100
     
     # Plot array data
     ax = axes[idx]
@@ -232,4 +241,63 @@ plt.suptitle('Part-time tax efficiency: premium retention (%) (Copenhagen 2026)'
 plt.tight_layout(rect=[0, 0.03, 1, 0.94])
 
 # Render the layout grid window
+plt.show()
+
+# Minimum working days per week maximizing premium retention (Copenhagen 2026)
+
+# Sample gross yearly salaries across the relevant range
+gross_salary_axis = np.linspace(120_000, 3_200_000, 5000)
+
+# Allocate vector storing the optimal number of working days per week
+x_opt_values = []
+
+# Iterate through each gross salary and identify the optimal part-time schedule
+for g in gross_salary_axis:
+
+    # Skip the undefined zero salary case
+    if g <= 0:
+        x_opt_values.append(0)
+        continue
+
+    # Recompute full-time net salary
+    n = skat(g)
+
+    # Find x to maximize percentual premium retention
+    res = minimize_scalar(
+        lambda x: -p_r_perc(x),
+        bounds=(0, 5),
+        method='bounded',
+        options={'xatol':1e-16}
+    )
+
+    x_opt = res.x
+
+    # Store result
+    x_opt_values.append(x_opt)
+
+# Initialize the plot
+plt.figure(figsize=(12, 7))
+
+# Plot optimal working days per week
+plt.plot(gross_salary_axis, x_opt_values, color='#1f77b4', linewidth=2.5)
+
+# Add visual indicators for the 2026 progressive bracket entries
+plt.axvline(x=mellemskat_gross, color='#1f77b4', linestyle=':', alpha=0.7, label='Mellemskat bracket entry (~697k gross)')
+plt.axvline(x=topskat_gross, color='#9467bd', linestyle=':', alpha=0.7, label='Topskat bracket entry (~845k gross)')
+plt.axvline(x=toptopskat_gross, color='#e377c2', linestyle=':', alpha=0.7, label='Toptopskat bracket entry (~2.82M gross)')
+
+# Aesthetics and formatting
+plt.title('Minimum working days per week maximizing premium retention (Copenhagen 2026)', fontsize=14, fontweight='bold', pad=15)
+plt.xlabel('Gross yearly salary (DKK)', fontsize=12)
+plt.ylabel('Minimum working days per week ($x_{opt}$)', fontsize=12)
+
+# Format axes numbers with commas for thousands
+plt.gca().get_xaxis().set_major_formatter(plt.FuncFormatter(lambda x, loc: f"{int(x):,}"))
+plt.yticks(np.arange(0, 5.5, 0.5))
+
+plt.grid(True, linestyle='--', alpha=0.5)
+plt.legend(loc='lower left', fontsize=10)
+plt.tight_layout()
+
+# Render the plot
 plt.show()

@@ -26,13 +26,19 @@ $$x_{\text{opt}} = \arg\max_{x \in [0,5]} \left( p_r^\\%(x) \right)$$
 
 Given the taxation function below:
 
-![Figure 1:  Danish salary tax: gross vs. net salary (Copenhagen 2026)](danish_salary_tax.png)
+![Figure 1: Danish salary tax: gross vs. net salary (Copenhagen 2026)](danish_salary_tax.png)
 *Figure 1: Comparison between gross salary and net salary under the 2026 Copenhagen tax rules.*
 
 It is possible to observe variation in tax efficiency:
 
-![Figure 2:  Part-time tax efficiency: premium retention (%) (Copenhagen 2026)](part_time_tax_efficiency.png)
+![Figure 2: Part-time tax efficiency: premium retention (%) (Copenhagen 2026)](part_time_tax_efficiency.png)
 *Figure 2: Analysis of the premium retention for different full-time yearly gross salaries. Specifically, the bracket entry points are taken into account.*
+
+Finally, the minimum number of working days per week with respect to yearly gross salary, so as to maximize premium retention, is determined:
+
+![Figure 3: Minimum working days per week maximizing premium retention (Copenhagen 2026))](minimum_working_days_per_week.png)
+*Figure 3: Minimum working days per week maximizing premium retention.*
+
 
 ## Example
 
