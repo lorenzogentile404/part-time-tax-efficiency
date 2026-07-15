@@ -69,8 +69,6 @@ n = skat(g)
 # Number of working days per week [0,5]
 x = 5
 
-print("Full-time percentual net wrt gross yearly salary: " + str(n / g * 100) + " %")
-
 # Gross yearly salary retained taking into account part-time (absolute and percentual wrt full-time)
 g_r = lambda x : x/5 * g
 g_r_perc = lambda x: g_r(x) / g
@@ -81,6 +79,33 @@ n_r_perc = lambda x : n_r(x) / n
 
 # Find x to maximize percentual premium retention defined as
 p_r_perc = lambda x : n_r_perc(x) - g_r_perc(x)
+
+x_values = np.linspace(0, 5, 1000)
+p_r_perc_values = np.array([p_r_perc(x) * 100 for x in x_values])
+index_opt = np.argmax(p_r_perc_values)
+x_opt = x_values[index_opt]
+p_r_perc_max = p_r_perc_values[index_opt]
+
+# Summary
+
+print("(1 - n / g) * 100 (full-time tax rate) = " + str(round((1 - n / g) * 100, 2)) + " %")
+
+print("x_opt = " + str(round(x_opt, 2)))
+print("p_r_perc_max = n_r_perc(x_opt) - g_r_perc(x_opt) (optimal premium retention) = " + str(round(p_r_perc_max, 2)) + " %")
+
+print("g_r(5) = " + str(round(g_r(5), 2)) + " DKK")
+print("g_r_perc(5) = " + str(round(g_r_perc(5)*100, 2)) + " %")
+print("n_r(5) = " + str(round(n_r(5), 2)) + " DKK")
+print("n_r_perc(5) = " + str(round(n_r_perc(5)*100, 2)) + " %")
+
+print("g_r(x_opt) = " + str(round(g_r(x_opt), 2)) + " DKK")
+print("g_r_perc(x_opt) = " + str(round(g_r_perc(x_opt)*100, 2)) + " %")
+print("n_r(x_opt) = " + str(round(n_r(x_opt), 2)) + " DKK")
+print("n_r_perc(x_opt) = " + str(round(n_r_perc(x_opt)*100, 2)) + " %")
+
+print("(1 - n_r(x_opt) / g_r(x_opt)) * 100 (optimal part-time tax rate) = " + str(round((1 - n_r(x_opt) / g_r(x_opt)) * 100, 2)) + " %")
+
+print("(1 - n / g) * 100 - (1 - n_r(x_opt) / g_r(x_opt)) * 100 (difference between full-time tax rate and optimal part-time tax rate) = " + str(round((1 - n / g) * 100 - (1 - n_r(x_opt) / g_r(x_opt)) * 100, 2)) + " %")
 
 # =====================================================================
 # Plots
@@ -159,19 +184,19 @@ for idx, (title, g_val) in enumerate(salary_bands.items()):
     n = skat(g)
     
     # Map out percentual premium curve vector using the existing p_r_perc function
-    perc_premium_values = np.array([p_r_perc(val) * 100 for val in days_axis])
+    p_r_perc_values = np.array([p_r_perc(val) * 100 for val in days_axis])
     
     # Identify maximum position
-    optimal_index = np.argmax(perc_premium_values)
-    optimal_x = days_axis[optimal_index]
-    max_premium = perc_premium_values[optimal_index]
+    index_opt = np.argmax(p_r_perc_values)
+    x_opt = days_axis[index_opt]
+    p_r_perc_max = p_r_perc_values[index_opt]
     
     # Plot array data
     ax = axes[idx]
-    ax.plot(days_axis, perc_premium_values, color='#1f77b4', linewidth=2)
+    ax.plot(days_axis, p_r_perc_values, color='#1f77b4', linewidth=2)
     
     # Add peak value indicator markers
-    ax.plot(optimal_x, max_premium, 'ro', label=f'Peak: {max_premium:+.2f}% at {optimal_x:.2f} days')
+    ax.plot(x_opt, p_r_perc_max, 'ro', label=f'Peak: {p_r_perc_max:+.2f}% at {x_opt:.2f} days')
     
     # Calculate relevant tax bracket limits transitioned into working day coordinates
     # g : 5 = band_entry / 0.92 : x
