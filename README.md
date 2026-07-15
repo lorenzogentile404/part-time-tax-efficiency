@@ -63,7 +63,7 @@ n_r_perc(5) = 100.0 %
 
 # Gross and net yearly salary part-time
 g_r(x_opt) = 539639.64 DKK
-g_r_perc(x_opt) = 59.96 %
+g_r_perc(x_opt) = 60 %
 n_r(x_opt) = 363375.53 DKK
 n_r_perc(x_opt) = 64.48 %
 
