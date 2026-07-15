@@ -55,11 +55,13 @@ Numerically:
 x_opt = 3.0
 p_r_perc_max = n_r_perc(x_opt) - g_r_perc(x_opt) = 4.52 %
 
+# Gross and net yearly salary full-time
 g_r(5) = 900000.0 DKK
 g_r_perc(5) = 100.0 %
 n_r(5) = 563535.0 DKK
 n_r_perc(5) = 100.0 %
 
+# Gross and net yearly salary part-time
 g_r(x_opt) = 539639.64 DKK
 g_r_perc(x_opt) = 59.96 %
 n_r(x_opt) = 363375.53 DKK
